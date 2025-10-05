@@ -5,39 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Giriş</title>
   <style>
-    :root {
-      --renk-arka: #0f0f0f;
-      --renk-kutu: #1b1b1b;
-      --renk-yazi: #eee;
-      --renk-vurgu: #00c3ff;
-      --renk-buton-yazi: #000;
-    }
-
     body {
-      background: var(--renk-arka);
-      color: var(--renk-yazi);
       font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: #eee;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      transition: background 0.3s ease;
+      text-align: center;
     }
-
     .kutu {
-      background: var(--renk-kutu);
+      background: #1b1b1b;
       padding: 25px;
       border-radius: 10px;
       box-shadow: 0 0 10px #000;
       width: 320px;
-      text-align: center;
     }
-
-    h2 {
-      color: var(--renk-vurgu);
-    }
-
     select, input, button {
       width: 100%;
       margin: 8px 0;
@@ -47,25 +32,16 @@
       background: #222;
       color: #fff;
       font-size: 15px;
-      transition: 0.2s;
     }
-
     button {
-      background: var(--renk-vurgu);
-      color: var(--renk-buton-yazi);
+      background: #00c3ff;
+      color: #000;
       font-weight: bold;
       cursor: pointer;
     }
-
     button:hover {
-      opacity: 0.8;
+      background: #00a9dd;
     }
-
-    /* Cihazlara göre ön izleme renkleri */
-    body.tahta { background: #1e1e2e; }
-    body.telefon { background: #0e0e0e; }
-    body.tablet { background: #1b2428; }
-    body.pc { background: #141414; }
   </style>
 </head>
 <body>
@@ -73,9 +49,9 @@
     <h2>Siteye Giriş</h2>
 
     <label>1️⃣ Giriş Yeri</label>
-    <select id="girisYeri" onchange="temaOnizleme()">
+    <select id="girisYeri">
       <option value="">Seç...</option>
-      <option value="okuldaki akıllı tahta">Okuldaki Akıllı Tahta</option>
+      <option value="okul">Okuldaki Akıllı Tahta</option>
       <option value="telefon">Telefon</option>
       <option value="tablet">Tablet</option>
       <option value="pc">Bilgisayar</option>
@@ -84,30 +60,26 @@
     <label>2️⃣ İsmin</label>
     <input type="text" id="isim" placeholder="Adını Yaz">
 
-    <button onclick="kaydet()">Kaydet ve Devam Et</button>
+    <button onclick="devamEt()">Devam Et</button>
   </div>
 
   <script>
-    const select = document.getElementById("girisYeri");
-
-    // Tema ön izleme (seçilen cihaza göre renk değişir)
-    function temaOnizleme() {
-      document.body.className = ""; // önce temizle
-      const secim = select.value;
-
-      if (secim === "okuldaki akıllı tahta") document.body.classList.add("tahta");
-      if (secim === "telefon") document.body.classList.add("telefon");
-      if (secim === "tablet") document.body.classList.add("tablet");
-      if (secim === "pc") document.body.classList.add("pc");
-    }
-
-    // Giriş bilgilerini kaydet
-    function kaydet() {
-      const girisYeri = select.value;
+    function devamEt() {
+      const girisYeri = document.getElementById("girisYeri").value;
       const isim = document.getElementById("isim").value.trim();
 
-      if (!girisYeri) {
-        alert("Lütfen giriş yerini seç!");
+      if (!girisYeri || !isim) {
+        alert("Lütfen giriş yerini ve ismini girin!");
+        return;
+      }
+
+      // URL üzerinden yönlendirme (bilgiler kaydedilmez)
+      const url = `yonlendir.html?isim=${encodeURIComponent(isim)}&yer=${encodeURIComponent(girisYeri)}`;
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>        alert("Lütfen giriş yerini seç!");
         return;
       }
       if (!isim) {
