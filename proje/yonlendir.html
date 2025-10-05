@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yönlendirme Sayfası</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: #111;
+      transition: background 0.3s ease;
+    }
+
+    header {
+      background: #1a1a1a;
+      padding: 15px;
+      box-shadow: 0 0 10px #000;
+    }
+
+    h1 {
+      margin: 10px 0;
+    }
+
+    .menu {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .menu a {
+      background: #222;
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 10px;
+      width: 200px;
+      transition: 0.2s;
+    }
+
+    .menu a:hover {
+      background: #333;
+      transform: scale(1.05);
+    }
+
+    .bilgi {
+      margin-top: 25px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .reset {
+      margin-top: 30px;
+      background: crimson;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .reset:hover {
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hoş Geldin!</h1>
+  </header>
+
+  <h2 id="hosgeldinYazi">Yükleniyor...</h2>
+
+  <div class="menu">
+    <a href="blog.html">📝 Bloga Git</a>
+    <a href="duyurular.html">📢 Duyurulara Git</a>
+    <a href="linkler.html">🔗 Linklere Git</a>
+    <a href="genel.html">🌐 Genel Sayfa</a>
+  </div>
+
+  <p class="bilgi">Yukarıdan istediğin bölüme gidebilirsin.</p>
+
+  <button class="reset" id="sifirla">Bilgileri Sıfırla</button>
+
+  <script>
+    const isim = localStorage.getItem("isim");
+    const girisYeri = localStorage.getItem("girisYeri");
+
+    // Eğer bilgiler yoksa geri yönlendir
+    if (!isim || !girisYeri) {
+      window.location.href = "giris.html";
+    }
+
+    // Hoş geldin yazısı
+    document.getElementById("hosgeldinYazi").textContent =
+      `Merhaba ${isim}! (${girisYeri} üzerinden giriş yaptın)`;
+
+    // Giriş yerine göre tema
+    const temalar = {
+      okul: "#0044cc",
+      telefon: "#00cc88",
+      tablet: "#cc8800",
+      pc: "#8800cc"
+    };
+    document.body.style.background = temalar[girisYeri] || "#111";
+
+    // Sıfırlama
+    document.getElementById("sifirla").addEventListener("click", () => {
+      localStorage.clear();
+      alert("Bilgiler sıfırlandı, giriş sayfasına yönlendiriliyorsun.");
+      window.location.href = "giris.html";
+    });
+  </script>
+</body>
+</html>
